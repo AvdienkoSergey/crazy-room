@@ -49,3 +49,4 @@ C:\Users\Family\Desktop\SERGEY\C#\ConsoleApp.CrazyRoom\ConsoleApp.CrazyRoom\bin\
 C:\Users\Family\Desktop\SERGEY\C#\ConsoleApp.CrazyRoom\ConsoleApp.CrazyRoom\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Family\Desktop\SERGEY\C#\ConsoleApp.CrazyRoom\ConsoleApp.CrazyRoom\obj\Debug\net8.0\ConsoleApp.CrazyRoom.csproj.AssemblyReference.cache
 C:\Users\Family\Desktop\SERGEY\C#\ConsoleApp.CrazyRoom\ConsoleApp.CrazyRoom\obj\Debug\net8.0\ConsoleA.310581B1.Up2Date
+C:\Users\Family\Desktop\SERGEY\C#\ConsoleApp.CrazyRoom\ConsoleApp.CrazyRoom\obj\Debug\net8.0\ConsoleApp.CrazyRoom.sourcelink.json

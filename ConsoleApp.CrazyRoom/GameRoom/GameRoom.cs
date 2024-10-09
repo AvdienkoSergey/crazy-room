@@ -3,17 +3,15 @@
 using ConsoleApp.CrazyRoom.Hero;
 using ConsoleApp.CrazyRoom.Things;
 
-public class GameRoom
+public class GameRoom : IGameRoom
 {
-    public class Room : IGameRoom
-    {
         private readonly byte _width;
         private readonly byte _height;
         private readonly int[,] _grid;
         private Hero _hero;
         private Thing[] _things;
 
-        public Room(byte w, byte h, Hero hero, Thing[] things)
+        public GameRoom(byte w, byte h, Hero hero, Thing[] things)
         {
             if (w > 40) throw new ArgumentException("Invalid width, must be less than or equal to 40."); 
             if (h > 40) throw new ArgumentException("Invalid height, must be less than or equal to 40.");
@@ -35,9 +33,18 @@ public class GameRoom
             return _height;
         }
 
+        public Thing[] GetThingsListInRoom()
+        {
+            return _things;
+        }
+
+        public Hero GetHero()
+        {
+            return _hero;
+        }
+
         public int[,] GetGrid()
         {
             return _grid;
         }
     }
-}

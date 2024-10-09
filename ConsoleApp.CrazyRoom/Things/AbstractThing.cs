@@ -1,45 +1,47 @@
 ﻿namespace ConsoleApp.CrazyRoom.Things;
 
+// public delegate void InteractionEventHandler(T something);
+// public event InteractionEventHandler? OnInteract;
+
 using ConsoleApp.CrazyRoom.Position;
 using ConsoleApp.CrazyRoom.Hero;
 
-public abstract class Thing(char symbol, Position position)
+public abstract class Thing(char symbol, IPosition position, sbyte rangeOfAction) : IGameCharacter
 {
-    
     private readonly char _symbol = symbol;
-    private readonly Position _position = position;
-   
-    /// <summary>
-    /// Зона в которой сработает event InteractWithHero или InteractWithOtherThings 
-    /// </summary>
-    public abstract sbyte Zone { get; }
+    private readonly sbyte _rangeOfAction = rangeOfAction;
+    private IPosition _position = position;
+    
+    public void SetPosition(IPosition position)
+    {
+        _position = position;
+    }
+    
+    public IPosition GetPosition()
+    {
+        return _position;
+    }
     
     /// <summary>
-    /// Отображение предмета в игровой комнате
+    /// Возвращает символ, которым будет обозначен предмет в игровой комнате
     /// </summary>
-    /// <returns> Возвращает символ, которым будет обозначен предмет в игровой комнате </returns>
     public char GetAvatar()
     {
         return _symbol;
     }
 
     /// <summary>
-    /// Находится ли что-то/кто-то в области взаимодействия с предметом
+    /// Находится ли текущая позиция в зоне активности предмета?
     /// </summary>
-    /// <param name="someonePosition"> Проверяемая позиция </param>
-    public bool IsSomeIsThingZone(Position someonePosition) 
+    public bool InTheAreaOfAction(IPosition position)
     {
-        return Math.Abs(someonePosition.X - _position.X) <= Zone && Math.Abs(someonePosition.Y - _position.Y) <= Zone;
+        return Math.Abs(position.X - _position.X) <= _rangeOfAction && Math.Abs(position.Y - _position.Y) <= _rangeOfAction;
     }
     
     /// <summary>
-    /// Взаимодействие с героем
+    /// Взаимодействие с окружающим миром
     /// </summary>
-    public abstract void InteractWithHero(Hero hero);
+    public abstract void InteractWith(IGameCharacter? actor);
     
-    /// <summary>
-    /// Взаимодействие с предметом
-    /// </summary>
-    /// <param name="someoneThing"> Какой-то предмет </param>
-    public abstract void InteractWithOtherThings(Thing someoneThing);
+    public abstract void TakeDamage(int value);
 }

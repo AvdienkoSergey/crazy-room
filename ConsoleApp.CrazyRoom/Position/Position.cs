@@ -1,13 +1,28 @@
 ﻿namespace ConsoleApp.CrazyRoom.Position;
 
-public class Position(sbyte x, sbyte y) : IPosition
+public class Position : IPosition
 {
-    private sbyte _x;
-    private sbyte _y;
+    private sbyte _x = 0;
+    private sbyte _y = 0;
+
+    public Position()
+    {}
+
+    public Position(sbyte x, sbyte y)
+    {
+        _x = x;
+        _y = y;
+    }
 
     public int X => _x;
     public int Y => _y;
-    
-    public void SetX(sbyte x) => _x = x;
-    public void SetY(sbyte y) => _y = y;
+
+    public void SetX(sbyte value)
+    {
+        _x = value;
+    }
+    public void SetY(sbyte value)
+    {
+        _y = value;
+    }
 }

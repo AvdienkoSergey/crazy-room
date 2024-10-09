@@ -1,12 +1,13 @@
 ﻿namespace ConsoleApp.CrazyRoom.Hero;
 
-using ConsoleApp.CrazyRoom.Position;
+using Position;
 
-public class Hero(char symbol, Position position) : IHero
+public class Hero(char symbol, IPosition position) : IHero, IGameCharacter
 {
     
     private readonly char _symbol = symbol;
-    private readonly Position _position = position;
+    private IPosition _position = position;
+    private int _health = 100;
     
     public char GetAvatar()
     {
@@ -31,5 +32,25 @@ public class Hero(char symbol, Position position) : IHero
     public void MoveDown(sbyte max)
     {
         if (_position.Y < max) _position.SetY((sbyte)(_position.Y + 1));
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+    }
+    
+    public void SetPosition(IPosition position)
+    {
+        _position = position;
+    }
+
+    public IPosition GetPosition()
+    {
+        return _position;
+    }
+
+    public int GetHealth()
+    {
+        return _health;
     }
 }
