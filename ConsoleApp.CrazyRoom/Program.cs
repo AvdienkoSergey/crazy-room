@@ -7,11 +7,13 @@ using ConsoleApp.CrazyRoom.Things;
 
 var gameDesigner = new GameRoomDesigner(
     new GameRoom(
-        20,
+        10,
         10,
         new Hero('H', new Position()),
         [
-            new Mine('M', new Position(), 1)
+            new Mine('Y', new Position(), 2),
+            new Mine('M', new Position(), 1),
+            new Mine('O', new Position(), 1),
         ]
     )
 );

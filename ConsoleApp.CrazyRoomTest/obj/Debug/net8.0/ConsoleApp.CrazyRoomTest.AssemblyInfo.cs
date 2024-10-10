@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsoleApp.CrazyRoomTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc466603f8c2c7501c47c6f8c8d6046a12ddf746")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4eb39e4f7b6ceba5d8faefdf30b963bae13042da")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsoleApp.CrazyRoomTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsoleApp.CrazyRoomTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -3,7 +3,9 @@
 using GameRoom;
 using Hero;
 using Things;
-using Position;
+using GameRender;
+using GameChat;
+using GameStatusDisplay;
 
 public class Game
 {
@@ -12,6 +14,9 @@ public class Game
     private readonly IHero _hero;
     private readonly Thing[] _things;
     private readonly List<string> _logs  = [];
+    private readonly IGameRender _gameRender = new GameRender();
+    private readonly IGameChat _gameChat = new GameChat();
+    private readonly IGameStatusDisplay _gameStatusDisplay = new GameStatusDisplay();
 
     public Game(IGameRoom gameRoom)
     {
@@ -22,9 +27,15 @@ public class Game
         _roomHeight = gameRoom.GetHeight();
         _things = gameRoom.GetThingsListInRoom();
         
-        // Как реализовать DI?
+        // Как реализовать DI? Чем больше объектов будет появляться тем хуже
         var interactionManager = new MineInteractionManager();
-        interactionManager.Subscribe(_things[0] as Mine);
+        foreach (var thing in _things)
+        {
+            if (thing is Mine)
+            {
+                interactionManager.Subscribe(thing as Mine);
+            }
+        }
     }
 
     private void Render()
@@ -39,31 +50,30 @@ public class Game
             {
                 if (heroPosition.X == x && heroPosition.Y == y)
                 {
-                    ShowHeroPosition();
+                    ShowHero(_hero);
                 }
                 else if (_things.Length == 0)
                 {
-                    Console.Write('.');
+                    ShowEmptyField();
                 }
                 else
                 {
+                    bool isEmpty = true;
                     foreach (var thing in _things)
                     {
                         var thingPosition = thing.GetPosition();
-                        if (thingPosition.X == x && thingPosition.Y == y)
-                        {
-                            Console.Write(thing.GetAvatar());
-                            
-                            if (thing.InTheAreaOfAction(heroPosition))
-                            {
-                                thing.InteractWith(_hero as IGameCharacter);
-                                _logs.Add($"Осталось здоровья {_hero.GetHealth()} из 100");
-                            }
-                            
-                            continue;
-                        }
-                    
-                        Console.Write('.');
+                        if (thingPosition.X != x || thingPosition.Y != y) continue;
+                        ShowThing(thing);
+                        isEmpty = false;
+
+                        if (!thing.InTheAreaOfAction(heroPosition)) continue;
+                        thing.InteractWith(_hero as IGameCharacter);
+                        _logs.Add($"Осталось здоровья {_hero.GetHealth()} из 100");
+                    }
+
+                    if (isEmpty)
+                    {
+                        ShowEmptyField();
                     }
                 }
             }
@@ -73,9 +83,21 @@ public class Game
         RenderSidebar(_roomWidth, _roomHeight);
     }
     
-    private void ShowHeroPosition()
+    private void ShowHero(IHero hero)
     {
-        Console.Write(_hero.GetAvatar());
+        // Требуется сущность для реализации отображения героя
+        // Например, герой может поменять одежду если идет дождь и прочее
+        Console.Write(hero.GetAvatar());
+    }
+
+    private void ShowEmptyField()
+    {
+        Console.Write('.');
+    }
+
+    private void ShowThing(Thing thing)
+    {
+        Console.Write(thing.GetAvatar());
     }
     
     private void RenderSidebar(int width, int height) 
@@ -85,6 +107,8 @@ public class Game
         {
             _logs.RemoveAt(0);
         }
+        
+        
         
         for (var h = 0; h < height; h++)
         {

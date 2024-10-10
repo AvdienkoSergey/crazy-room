@@ -2,5 +2,5 @@
 
 public interface IGameRender
 {
-    void Render(IGameFrame gameFrame);
+    void Run();
 }
