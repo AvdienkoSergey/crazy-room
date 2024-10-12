@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp.CrazyRoom.Position;
+﻿namespace ConsoleApp.CrazyRoom;
+
+using Interfaces;
 
 public class Position : IPosition
 {

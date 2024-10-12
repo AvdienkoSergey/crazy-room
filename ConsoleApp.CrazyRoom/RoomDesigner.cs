@@ -1,19 +1,18 @@
-﻿namespace ConsoleApp.CrazyRoom.GameRoomDesigner;
+﻿namespace ConsoleApp.CrazyRoom;
 
-using GameRoom;
-using Position;
-using Game;
+using Interfaces;
 
-public class GameRoomDesigner
+public class RoomDesigner : IRoomDesigner
 {
-    private readonly IGameRoom _gameRoom;
+    private readonly IRoom _room;
     private readonly IPosition[] _usingPositions;
     private int _currentUsingPositionIndex;
+    private IRoomDesigner _roomDesignerImplementation;
 
-    public GameRoomDesigner(IGameRoom gameRoom)
+    public RoomDesigner(IRoom room)
     {
-        _gameRoom = gameRoom;
-        _usingPositions = new IPosition[gameRoom.GetThingsListInRoom().Length];
+        _room = room;
+        _usingPositions = new IPosition[room.GetThingsListInRoom().Length];
         _currentUsingPositionIndex = 0;
 
         PlaceThingsInRoom();
@@ -22,14 +21,14 @@ public class GameRoomDesigner
 
     private void PlaceHeroToRoom()
     {
-        var hero = _gameRoom.GetHero();
+        var hero = _room.GetHero();
         var randomPosition = GetRandomPosition();
         hero.SetPosition(randomPosition);
     }
     
     private void PlaceThingsInRoom()
     {
-        foreach (var thing in _gameRoom.GetThingsListInRoom())
+        foreach (var thing in _room.GetThingsListInRoom())
         {
             var randomPosition = GetRandomPosition();
             thing.SetPosition(randomPosition);
@@ -42,8 +41,8 @@ public class GameRoomDesigner
         IPosition randomPosition;
         
         do {
-            var randomX = (sbyte)random.Next(0, _gameRoom.GetWidth());
-            var randomY = (sbyte)random.Next(0, _gameRoom.GetHeight());
+            var randomX = (sbyte)random.Next(0, _room.GetWidth());
+            var randomY = (sbyte)random.Next(0, _room.GetHeight());
             randomPosition = new Position(randomX, randomY);
         }
         while (_usingPositions.Contains(randomPosition));
@@ -59,9 +58,9 @@ public class GameRoomDesigner
         return randomPosition;
     }
     
-    public Game GetGame()
+    public IGame GetGame()
     {
-        var game = new Game(_gameRoom);
+        var game = new Game(_room);
         return game;
     }
 }

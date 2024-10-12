@@ -1,6 +1,4 @@
-﻿namespace ConsoleApp.CrazyRoom.Hero;
-
-using ConsoleApp.CrazyRoom.Position;
+﻿namespace ConsoleApp.CrazyRoom.Interfaces;
 
 public interface IHero
 {

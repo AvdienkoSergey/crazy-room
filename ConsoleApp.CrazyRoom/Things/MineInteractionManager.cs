@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp.CrazyRoom.Things;
 
-using Hero;
+using Interfaces;
 
 public class MineInteractionManager
 {
@@ -9,11 +9,12 @@ public class MineInteractionManager
         if (mine != null) mine.OnInteract += HandleInteraction;
     }
     
-    private void HandleInteraction(IGameCharacter target)
+    private void HandleInteraction(ICharacter target)
     {
-        if (target is Hero)
+        if (target is Hero hero)
         {
-            target.TakeDamage(1);
+            const int damageAmount = 10;
+            hero.TakeDamage(damageAmount);
         }
     }
 }

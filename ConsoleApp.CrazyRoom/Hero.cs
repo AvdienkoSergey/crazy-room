@@ -1,8 +1,8 @@
-﻿namespace ConsoleApp.CrazyRoom.Hero;
+﻿namespace ConsoleApp.CrazyRoom;
 
-using Position;
+using Interfaces;
 
-public class Hero(char symbol, IPosition position) : IHero, IGameCharacter
+public class Hero(char symbol, IPosition position) : IHero, ICharacter
 {
     
     private readonly char _symbol = symbol;

@@ -3,14 +3,21 @@
 // public delegate void InteractionEventHandler(T something);
 // public event InteractionEventHandler? OnInteract;
 
-using ConsoleApp.CrazyRoom.Position;
-using ConsoleApp.CrazyRoom.Hero;
+using ConsoleApp.CrazyRoom.Interfaces;
 
-public abstract class Thing(char symbol, IPosition position, sbyte rangeOfAction) : IGameCharacter
+public abstract class Thing(char symbol, IPosition position, sbyte rangeOfAction) : ICharacter
 {
     private readonly char _symbol = symbol;
     private readonly sbyte _rangeOfAction = rangeOfAction;
     private IPosition _position = position;
+    
+    public delegate void InteractionEventHandler(ICharacter actor);
+    public event InteractionEventHandler? OnInteract;
+    
+    protected void TriggerInteraction(ICharacter? actor)
+    {
+        if (actor != null) OnInteract?.Invoke(actor);
+    }
     
     public void SetPosition(IPosition position)
     {
@@ -41,7 +48,7 @@ public abstract class Thing(char symbol, IPosition position, sbyte rangeOfAction
     /// <summary>
     /// Взаимодействие с окружающим миром
     /// </summary>
-    public abstract void InteractWith(IGameCharacter? actor);
+    public abstract void InteractWith(ICharacter? actor);
     
     public abstract void TakeDamage(int value);
 }

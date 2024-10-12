@@ -1,31 +1,27 @@
-﻿namespace ConsoleApp.CrazyRoom.Game;
+﻿namespace ConsoleApp.CrazyRoom;
 
-using GameRoom;
-using Hero;
+using Interfaces;
 using Things;
-using GameRender;
-using GameChat;
-using GameStatusDisplay;
 
-public class Game
+public class Game : IGame
 {
     private readonly int _roomWidth;
     private readonly int _roomHeight;
     private readonly IHero _hero;
     private readonly Thing[] _things;
     private readonly List<string> _logs  = [];
-    private readonly IGameRender _gameRender = new GameRender();
-    private readonly IGameChat _gameChat = new GameChat();
-    private readonly IGameStatusDisplay _gameStatusDisplay = new GameStatusDisplay();
+    private readonly IRender _render = new Render();
+    private readonly IChat _chat = new Chat();
+    private readonly IStatusDisplay _statusDisplay = new StatusDisplay();
 
-    public Game(IGameRoom gameRoom)
+    public Game(IRoom room)
     {
-        IHero hero = gameRoom.GetHero();
+        IHero hero = room.GetHero();
         
         _hero = hero;
-        _roomWidth = gameRoom.GetWidth();
-        _roomHeight = gameRoom.GetHeight();
-        _things = gameRoom.GetThingsListInRoom();
+        _roomWidth = room.GetWidth();
+        _roomHeight = room.GetHeight();
+        _things = room.GetThingsListInRoom();
         
         // Как реализовать DI? Чем больше объектов будет появляться тем хуже
         var interactionManager = new MineInteractionManager();
@@ -67,7 +63,7 @@ public class Game
                         isEmpty = false;
 
                         if (!thing.InTheAreaOfAction(heroPosition)) continue;
-                        thing.InteractWith(_hero as IGameCharacter);
+                        thing.InteractWith(_hero as ICharacter);
                         _logs.Add($"Осталось здоровья {_hero.GetHealth()} из 100");
                     }
 

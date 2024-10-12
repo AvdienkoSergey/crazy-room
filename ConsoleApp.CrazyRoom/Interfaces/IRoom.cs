@@ -1,12 +1,11 @@
-﻿namespace ConsoleApp.CrazyRoom.GameRoom;
+﻿namespace ConsoleApp.CrazyRoom.Interfaces;
 
 using ConsoleApp.CrazyRoom.Things;
-using ConsoleApp.CrazyRoom.Hero;
 
 /// <summary>
 /// Интерфейс для описания игровой комнаты, в которой происходят все события игры
 /// </summary>
-public interface IGameRoom
+public interface IRoom
 {
     /// <summary>
     /// Получает ширину комнаты
@@ -30,7 +29,7 @@ public interface IGameRoom
     /// Получает героя
     /// </summary>
     /// <returns>Герой</returns>
-    Hero GetHero();
+    IHero GetHero();
     
     /// <summary>
     /// Получает разметку для комнаты
