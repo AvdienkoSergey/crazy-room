@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\avdiyenko.sergey\\RiderProjects\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj": {}
+    "C:\\Users\\Family\\Desktop\\SERGEY\\C#\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj": {}
   },
   "projects": {
-    "C:\\Users\\avdiyenko.sergey\\RiderProjects\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj": {
+    "C:\\Users\\Family\\Desktop\\SERGEY\\C#\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\avdiyenko.sergey\\RiderProjects\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj",
+        "projectUniqueName": "C:\\Users\\Family\\Desktop\\SERGEY\\C#\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj",
         "projectName": "ConsoleApp.CrazyRoom",
-        "projectPath": "C:\\Users\\avdiyenko.sergey\\RiderProjects\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj",
-        "packagesPath": "C:\\Users\\avdiyenko.sergey\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\avdiyenko.sergey\\RiderProjects\\crazy-room\\ConsoleApp.CrazyRoom\\obj\\",
+        "projectPath": "C:\\Users\\Family\\Desktop\\SERGEY\\C#\\crazy-room\\ConsoleApp.CrazyRoom\\ConsoleApp.CrazyRoom.csproj",
+        "packagesPath": "C:\\Users\\Family\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Family\\Desktop\\SERGEY\\C#\\crazy-room\\ConsoleApp.CrazyRoom\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\avdiyenko.sergey\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Family\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.next.local/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,7 +38,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -75,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-rc.1.24452.12/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

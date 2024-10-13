@@ -2,7 +2,7 @@
 
 using Interfaces;
 
-public class Chat : IChat
+public class EventLoggerService : IEventLoggerService
 {
     
 }

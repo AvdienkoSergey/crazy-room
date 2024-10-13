@@ -5,146 +5,114 @@ using Things;
 
 public class Game : IGame
 {
-    private readonly int _roomWidth;
-    private readonly int _roomHeight;
-    private readonly IHero _hero;
-    private readonly Thing[] _things;
-    private readonly List<string> _logs  = [];
-    private readonly IRender _render = new Render();
-    private readonly IChat _chat = new Chat();
-    private readonly IStatusDisplay _statusDisplay = new StatusDisplay();
+    private readonly IRenderService _renderService;
+    private readonly IEventLoggerService _eventLoggerService;
+    private readonly IStatusService _statusService;
+    private readonly IInteractionService _mineInteractionService;
+    private readonly IEventService _eventService;
 
-    public Game(IRoom room)
+    public Game(
+        IRenderService renderService,
+        IEventLoggerService eventLoggerService,
+        IStatusService statusService,
+        IInteractionService mineInteractionService,
+        IEventService eventService
+    )
     {
-        IHero hero = room.GetHero();
-        
-        _hero = hero;
-        _roomWidth = room.GetWidth();
-        _roomHeight = room.GetHeight();
-        _things = room.GetThingsListInRoom();
-        
-        // Как реализовать DI? Чем больше объектов будет появляться тем хуже
-        var interactionManager = new MineInteractionManager();
-        foreach (var thing in _things)
+        _renderService = renderService;
+        _eventLoggerService = eventLoggerService;
+        _statusService = statusService;
+        _mineInteractionService = mineInteractionService;
+        _eventService = eventService;
+    }
+
+    public void Start(IRoom room)
+    {
+        foreach (var thing in room.GetThingsListInRoom())
         {
             if (thing is Mine)
             {
-                interactionManager.Subscribe(thing as Mine);
+                _mineInteractionService.Subscribe(thing);
             }
         }
-    }
-
-    private void Render()
-    {
-        Console.Clear();
-        
-        var heroPosition = _hero.GetPosition();
-
-        for (var y = 0; y < _roomHeight; y++)
-        {
-            for (var x = 0; x < _roomWidth; x++)
-            {
-                if (heroPosition.X == x && heroPosition.Y == y)
-                {
-                    ShowHero(_hero);
-                }
-                else if (_things.Length == 0)
-                {
-                    ShowEmptyField();
-                }
-                else
-                {
-                    bool isEmpty = true;
-                    foreach (var thing in _things)
-                    {
-                        var thingPosition = thing.GetPosition();
-                        if (thingPosition.X != x || thingPosition.Y != y) continue;
-                        ShowThing(thing);
-                        isEmpty = false;
-
-                        if (!thing.InTheAreaOfAction(heroPosition)) continue;
-                        thing.InteractWith(_hero as ICharacter);
-                        _logs.Add($"Осталось здоровья {_hero.GetHealth()} из 100");
-                    }
-
-                    if (isEmpty)
-                    {
-                        ShowEmptyField();
-                    }
-                }
-            }
-            Console.WriteLine();
-        }
-        
-        RenderSidebar(_roomWidth, _roomHeight);
-    }
-    
-    private void ShowHero(IHero hero)
-    {
-        // Требуется сущность для реализации отображения героя
-        // Например, герой может поменять одежду если идет дождь и прочее
-        Console.Write(hero.GetAvatar());
-    }
-
-    private void ShowEmptyField()
-    {
-        Console.Write('.');
-    }
-
-    private void ShowThing(Thing thing)
-    {
-        Console.Write(thing.GetAvatar());
-    }
-    
-    private void RenderSidebar(int width, int height) 
-    {
-        // Тут этому не место
-        if (_logs.Count > _roomHeight)
-        {
-            _logs.RemoveAt(0);
-        }
-        
-        
-        
-        for (var h = 0; h < height; h++)
-        {
-            Console.SetCursorPosition(width + 1, h);
-            Console.Write('|');
-            Console.Write(' ');
-            Console.Write(_logs.Count <= h ? string.Empty : _logs[h]);
-        }
-    }
-
-    public void Start()
-    {
-        Render();
+        _renderService.Run(room);
+        _eventService.Run(room);
         
         while (true)
         {
             var keyInfo = Console.ReadKey();
+            var hero = room.GetHero();
             
             switch (keyInfo.Key)
             {
                 case ConsoleKey.LeftArrow:
-                    _hero.MoveLeft(0);
-                    Render();
+                    hero.MoveLeft(0);
                     break;
                 case ConsoleKey.RightArrow:
-                    _hero.MoveRight((sbyte)(_roomWidth - 1));
-                    Render();
+                    hero.MoveRight((sbyte)(room.GetWidth() - 1));
                     break;
                 case ConsoleKey.UpArrow:
-                    _hero.MoveUp(0);
-                    Render();
+                    hero.MoveUp(0);
                     break;
                 case ConsoleKey.DownArrow:
-                    _hero.MoveDown((sbyte)(_roomHeight - 1));
-                    Render();
-                    break;
-                
-                default:
+                    hero.MoveDown((sbyte)(room.GetHeight() - 1));
                     break;
             }
+            
+            _renderService.Run(room);
+            _eventService.Run(room);
         }
     }
+    //
+    // private void RenderSidebar(int width, int height) 
+    // {
+    //     // Тут этому не место
+    //     if (_logs.Count > _roomHeight)
+    //     {
+    //         _logs.RemoveAt(0);
+    //     }
+    //     
+    //     
+    //     
+    //     for (var h = 0; h < height; h++)
+    //     {
+    //         Console.SetCursorPosition(width + 1, h);
+    //         Console.Write('|');
+    //         Console.Write(' ');
+    //         Console.Write(_logs.Count <= h ? string.Empty : _logs[h]);
+    //     }
+    // }
+    //
+    // public void Start()
+    // {
+    //     Render();
+    //     
+    //     while (true)
+    //     {
+    //         var keyInfo = Console.ReadKey();
+    //         
+    //         switch (keyInfo.Key)
+    //         {
+    //             case ConsoleKey.LeftArrow:
+    //                 _hero.MoveLeft(0);
+    //                 Render();
+    //                 break;
+    //             case ConsoleKey.RightArrow:
+    //                 _hero.MoveRight((sbyte)(_roomWidth - 1));
+    //                 Render();
+    //                 break;
+    //             case ConsoleKey.UpArrow:
+    //                 _hero.MoveUp(0);
+    //                 Render();
+    //                 break;
+    //             case ConsoleKey.DownArrow:
+    //                 _hero.MoveDown((sbyte)(_roomHeight - 1));
+    //                 Render();
+    //                 break;
+    //             
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    // }
 }

@@ -2,5 +2,5 @@
 
 public interface IRoomDesigner
 {
-    IGame GetGame();
+    IRoom GetRoom();
 }
