@@ -2,7 +2,7 @@
 
 using Interfaces;
 
-public class StatusDisplay : IStatusDisplay
+public class StatusService : IStatusService
 {
     
 }

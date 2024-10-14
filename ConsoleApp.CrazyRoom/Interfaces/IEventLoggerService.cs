@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp.CrazyRoom.Interfaces;
 
-public interface IRender
+public interface IEventLoggerService
 {
-    void Run();
+    
 }

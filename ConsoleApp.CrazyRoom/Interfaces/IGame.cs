@@ -2,5 +2,5 @@
 
 public interface IGame
 {
-    void Start();
+    void Start(IRoom room);
 }

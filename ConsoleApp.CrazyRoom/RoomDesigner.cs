@@ -7,7 +7,6 @@ public class RoomDesigner : IRoomDesigner
     private readonly IRoom _room;
     private readonly IPosition[] _usingPositions;
     private int _currentUsingPositionIndex;
-    private IRoomDesigner _roomDesignerImplementation;
 
     public RoomDesigner(IRoom room)
     {
@@ -58,9 +57,8 @@ public class RoomDesigner : IRoomDesigner
         return randomPosition;
     }
     
-    public IGame GetGame()
+    public IRoom GetRoom()
     {
-        var game = new Game(_room);
-        return game;
+        return _room; 
     }
 }
