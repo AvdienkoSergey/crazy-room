@@ -2,7 +2,8 @@
 using ConsoleApp.CrazyRoom;
 using ConsoleApp.CrazyRoom.Interfaces;
 using ConsoleApp.CrazyRoom.Services;
-using ConsoleApp.CrazyRoom.Things;
+using ConsoleApp.CrazyRoom.Models;
+using ConsoleApp.CrazyRoom.Models.Things;
 
 var serviceCollection = new ServiceCollection();
 serviceCollection.AddSingleton<IInteractionService, MineInteractionService>();

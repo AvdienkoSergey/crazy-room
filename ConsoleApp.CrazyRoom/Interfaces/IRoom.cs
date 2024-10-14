@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp.CrazyRoom.Interfaces;
 
-using ConsoleApp.CrazyRoom.Things;
+using Models.Things;
 
 /// <summary>
 /// Интерфейс для описания игровой комнаты, в которой происходят все события игры

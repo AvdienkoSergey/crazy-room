@@ -1,9 +1,9 @@
-﻿namespace ConsoleApp.CrazyRoom.Things;
+﻿namespace ConsoleApp.CrazyRoom.Models.Things;
 
 // public delegate void InteractionEventHandler(T something);
 // public event InteractionEventHandler? OnInteract;
 
-using ConsoleApp.CrazyRoom.Interfaces;
+using Interfaces;
 
 public abstract class Thing(char symbol, IPosition position, sbyte rangeOfAction) : ICharacter
 {

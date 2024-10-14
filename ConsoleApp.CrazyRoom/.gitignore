@@ -37,6 +37,8 @@ bld/
 # Rider
 .idea/
 .idea/*
+./idea
+./idea/*
 
 # Generated files
 *.g.i.cs

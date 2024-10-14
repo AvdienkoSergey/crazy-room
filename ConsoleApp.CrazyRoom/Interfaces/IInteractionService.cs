@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp.CrazyRoom.Interfaces;
 
-using Things;
+using Models.Things;
 
 public interface IInteractionService
 {

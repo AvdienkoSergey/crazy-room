@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp.CrazyRoom;
+﻿namespace ConsoleApp.CrazyRoom.Models;
 
 using Interfaces;
 using Things;

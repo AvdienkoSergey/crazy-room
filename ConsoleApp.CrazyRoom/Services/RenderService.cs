@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp.CrazyRoom.Services;
 
-using Things;
+using Models.Things;
 using Interfaces;
 
 public class RenderService : IRenderService
